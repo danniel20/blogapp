@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-body">
+    <h1><%=post.title%></h1>
+    <hr>
+    <small>Data da publicação <%=new Date(post.createdAt).toISOString().substr(0, 10).split('-').reverse().join('/') %></small>
+    <hr>
+    <p><%=post.content%></p>
+  </div>
+</div>

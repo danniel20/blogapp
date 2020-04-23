@@ -1,0 +1,74 @@
+<h3 class="text-center">Edição de Postagem</h3>
+
+<%for(error of errors){ %>
+  <div class="row justify-content-center">
+    <div class="alert alert-danger"><%=error.text%></div>
+  </div>
+<%}%>
+
+<form action="/admin/posts?_method=PUT" method="POST">
+
+  <input type="hidden" name="id" value="<%=post._id%>" >
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="title">Titulo</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%=post.title%>">
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="description">Descrição</label>
+      <input type="text" class="form-control" id="description" name="description" value="<%=post.description%>">
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="content">Conteúdo</label>
+      <textarea class="form-control" id="content" name="content"><%=post.content%></textarea>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="category">Categoria</label>
+      <select id="category" name="category" class="form-control">
+        <%for(category of categories){ %>
+          <%if(category._id == post.category._id){%>
+            <option value="<%=category._id%> selected"><%=category.name%></option>
+          <%}else{%>
+            <option value="<%=category._id%>"><%=category.name%></option>
+          <%}%>
+        <% } %>
+      </select>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <button type="submit" class="btn btn-success">Editar postagem</button>
+    </div>
+  </div>
+
+</form>
+
+<script>
+
+  function atualizaSelect(){
+    let $categoria = document.getElementById("categoria")
+    let $options = document.getElementsByTagName("option")
+    let id_sel = "<%=post.categoria%>"
+
+    for(let i=0; i < $options.length; i++){
+      if($options[i].value == id_sel){
+        $options[i].setAttribute("selected", "true")
+        return
+      }
+    }
+  }
+
+  atualizaSelect()
+
+</script>

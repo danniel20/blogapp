@@ -1,0 +1,8 @@
+<%- contentFor('body') %>
+
+<h1>Categorias</h1>
+
+<hr>
+<% for (category of categories){%>
+  <h4><a href="/posts/category/<%=category._id%>"><%=category.name%></a></h4>
+<% } %>

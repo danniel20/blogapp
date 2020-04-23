@@ -1,0 +1,53 @@
+<h3 class="text-center">Nova Postagem</h3>
+
+<%for(error of errors){ %>
+  <div class="row justify-content-center">
+    <div class="alert alert-danger"><%=error.text%></div>
+  </div>
+<%}%>
+
+<form action="/admin/posts" method="POST">
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="title">Titulo</label>
+      <input type="text" class="form-control" id="title" name="title">
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="description">Descrição</label>
+      <input type="text" class="form-control" id="description" name="description" >
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="content">Conteúdo</label>
+      <textarea class="form-control" id="content" name="content"></textarea>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <label for="category">Categoria</label>
+      <select id="category" name="category" class="form-control">
+        <%for(category of categories){ %>
+          <option value="<%=category._id%>"><%=category.name%></option>
+        <%}%>
+
+        <%if(categories.length == 0){ %>
+          <option value="0">Nenhuma categoria registrada</option>
+        <% } %>
+      </select>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <button type="submit" class="btn btn-success">Criar postagem</button>
+    </div>
+  </div>
+
+</form>
