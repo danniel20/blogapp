@@ -19,7 +19,7 @@ const CategorySchema = new mongoose.Schema({
   }
 })
 
-CategorySchema.pre('updateOne', function() {
+CategorySchema.pre('save', function() {
   this.set({ updatedAt: new Date() })
 })
 

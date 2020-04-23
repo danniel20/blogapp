@@ -10,7 +10,7 @@ module.exports = {
   async listCategories(req, res) {
     try {
       const categories = await Category.find().sort({ createdAt: 'desc' })
-      res.render('admin/categories/list', { categories })
+      res.render('admin/categories/index', { categories })
 
     } catch (err) {
       req.flash("error_msg", "Erro ao listar categorias, tente novamente.")
@@ -18,38 +18,8 @@ module.exports = {
     }
   },
 
-  formCategory(req, res) {
-    res.render('admin/categories/form', {errors: []})
-  },
-
-  async createCategory(req, res) {
-    try {
-
-      const { name, label } = req.body
-
-      let errors = []
-
-      if (!name) {
-        errors.push({ text: "Nome inválido" })
-      }
-
-      if (!label) {
-        errors.push({ text: "Slug inválido" })
-      }
-
-      if (errors.length > 0) {
-        return res.render('admin/categories/form', { errors})
-      }
-
-      await Category.create(req.body)
-
-      req.flash("success_msg", "Categoria criada com sucesso!")
-      res.redirect('/admin/categories')
-    }
-    catch (err) {
-      req.flash("error_msg", "Erro ao cadastar categoria, tente novamente.")
-      res.redirect('/admin')
-    }
+  newCategory(req, res) {
+    res.render('admin/categories/new', {category: new Category(), errors: []})
   },
 
   async editCategory(req, res) {
@@ -58,62 +28,62 @@ module.exports = {
 
       if (!category) {
         req.flash("error_msg", "Erro ao selecionar categoria, tente novamente.")
-        return res.redirect('/admin/categories/list')
+        return res.redirect('/admin/categories/index')
       }
 
       res.render('admin/categories/edit', { category, errors: [] })
     }
     catch (err) {
       req.flash("error_msg", "Erro interno.")
-      res.redirect('/admin/categories/list')
+      res.redirect('/admin/categories/index')
     }
   },
 
-  async updateCategory(req, res) {
+  async saveOrUpdateCategory(req, res) {
     try {
-      const category = req.body
+      const category = new Category(req.body)
 
       let errors = []
 
       if (!category.name) {
-        errors.push({ texto: "Nome inválido" })
+        errors.push({ text: "Nome inválido" })
       }
 
       if (!category.label) {
-        errors.push({ texto: "Label inválido" })
+        errors.push({ text: "Label inválido" })
       }
 
       if (errors.length > 0) {
-        return res.render('admin/categories/edit', { category, errors })
+        return res.render(category.id ? 'admin/categories/edit': 'admin/categories/new', {category, errors })
       }
 
-      const categoryToEdit = await Category.findById(category.id)
+      const categoryToEdit = await Category.findById(req.body.id)
 
-      if (!categoryToEdit) {
-        req.flash("error_msg", "Categoria não existe, tente novamente.")
-        return res.redirect('/admin/categories')
-      }
+      if (categoryToEdit) {
+        categoryToEdit.name = category.name
+        categoryToEdit.label = category.label
 
-      categoryToEdit.name = category.name
-      categoryToEdit.label = category.label
-
-      if (await categoryToEdit.save()) {
+        await categoryToEdit.save()
         req.flash("success_msg", "Categoria editada com sucesso.")
         res.redirect('/admin/categories')
       }
-    }
-    catch (err) {
-      req.flash("error_msg", "Erro ao editar categoria.")
-      res.redirect('/admin/categories')
+      else{
+        await Category.create(category)
+        req.flash("success_msg", "Categoria criada com sucesso!")
+        res.redirect('/admin/categories')
+      }
+
+    }catch(err){
+      req.flash("error_msg", "Erro ao salvar categoria, tente novamente.")
+      res.render('admin/categories/shared/form', {category, errors})
     }
   },
 
   async deleteCategory(req, res) {
     try {
-      if (await Category.deleteOne({ _id: req.body.id })) {
-        req.flash("success_msg", "Categoria removida com sucesso.")
-        res.redirect('/admin/categories')
-      }
+      await Category.findByIdAndRemove(req.body.id)
+      req.flash("success_msg", "Categoria removida com sucesso.")
+      res.redirect('/admin/categories')
     }
     catch (err) {
       req.flash("error_msg", "Erro ao deletar categoria.")
@@ -124,61 +94,21 @@ module.exports = {
   async listPosts(req, res) {
     try {
       const posts = await Post.find().populate("category").sort({ createdAt: 'desc' })
-      console.log(posts)
-      res.render('admin/posts/list', { posts })
+      res.render('admin/posts/index', { posts })
 
     } catch (err) {
-      console.log(err)
       req.flash("error_msg", "Erro ao listar posts, tente novamente.")
       res.redirect('/admin')
     }
   },
 
-  async formPost(req, res) {
+  async newPost(req, res) {
     try {
       const categories = await Category.find().sort({ createdAt: 'desc' })
-      res.render('admin/posts/form', { categories, errors: [] })
+      res.render('admin/posts/new', { post: new Post({_id: null}), categories, errors: [] })
     }
     catch (err) {
       req.flash("error_msg", "Erro ao carregar formulário.")
-      res.redirect('/admin/posts')
-    }
-  },
-
-  async createPost(req, res) {
-    const { title, description, content, category } = req.body
-    let errors = []
-
-    if (!title) {
-      errors.push({ texto: "Nome inválido" })
-    }
-
-    if (!description) {
-      errors.push({ texto: "Descrição inválida" })
-    }
-
-    if (!content) {
-      errors.push({ texto: "Conteúdo inválido" })
-    }
-
-    if (category == 0) {
-      errors.push({ text: "Categoria inválida, registre uma categoria" })
-    }
-
-    if (errors.length > 0) {
-      const categories = await Category.find().sort({ createdAt: 'desc' })
-      return res.render('admin/posts/form', { errors, categories })
-    }
-
-    try {
-      await Post.create(req.body)
-
-      req.flash("success_msg", "Post criado com sucesso!")
-      res.redirect('/admin/posts')
-
-    }
-    catch (err) {
-      req.flash("error_msg", "Erro ao cadastar post, tente novamente.")
       res.redirect('/admin/posts')
     }
   },
@@ -201,32 +131,59 @@ module.exports = {
     }
   },
 
-  async updatePost(req, res) {
+  async saveOrUpdatePost(req, res){
     try {
-      const { id, title, description, content, category } = req.body
-      const postToEdit = await Post.findById(id)
+      const post = new Post(req.body)
+      post._id = null
 
-      if (!postToEdit) {
-        req.flash("error_msg", "Post não existe, tente novamente.")
-        return res.redirect('/admin/posts')
+      let errors = []
+
+      if (!post.title) {
+        errors.push({ text: "Nome inválido" })
       }
 
-      postToEdit.title = title
-      postToEdit.description = description
-      postToEdit.content = content
-      postToEdit.category = category
+      if (!post.description) {
+        errors.push({ text: "Descrição inválida" })
+      }
 
-      if (await postToEdit.save()) {
+      if (!post.content) {
+        errors.push({ text: "Conteúdo inválido" })
+      }
+
+      if (post.category == 0) {
+        errors.push({ text: "Categoria inválida, registre uma categoria" })
+      }
+
+      if (errors.length > 0) {
+        const categories = await Category.find().sort({ createdAt: 'desc' })
+        return res.render(post.id ? 'admin/posts/edit' : 'admin/posts/new', { post, categories, errors  })
+      }
+
+      const postToEdit = await Post.findById(req.body.id)
+
+      if(postToEdit){
+        postToEdit.title = post.title
+        postToEdit.description = post.description
+        postToEdit.content = post.content
+        postToEdit.category = post.category
+
+        await postToEdit.save()
+
         req.flash("success_msg", "Post editado com sucesso.")
+        res.redirect('/admin/posts')
+      }
+      else{
+        await Post.create(post)
+        req.flash("success_msg", "Post criado com sucesso!")
         res.redirect('/admin/posts')
       }
     }
     catch (err) {
-      req.flash("error_msg", "Erro ao editar post.")
-      res.redirect('/admin/posts')
+      req.flash("error_msg", "Erro ao salvar post, tente novamente.")
+      res.redirect('/admin/posts/shared/form', { post, categories, errors  })
     }
-
   },
+
 
   async deletePost(req, res) {
     try {

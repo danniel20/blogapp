@@ -1,5 +1,3 @@
-<h3 class="text-center">Nova Postagem</h3>
-
 <%for(error of errors){ %>
   <div class="row justify-content-center">
     <div class="alert alert-danger"><%=error.text%></div>
@@ -8,24 +6,26 @@
 
 <form action="/admin/posts" method="POST">
 
+  <input type="hidden" name="id" value="<%=post._id%>" >
+
   <div class="row justify-content-center">
     <div class="form-group col-6">
       <label for="title">Titulo</label>
-      <input type="text" class="form-control" id="title" name="title">
+      <input type="text" class="form-control" id="title" name="title" value="<%=post.title%>">
     </div>
   </div>
 
   <div class="row justify-content-center">
     <div class="form-group col-6">
       <label for="description">Descrição</label>
-      <input type="text" class="form-control" id="description" name="description" >
+      <input type="text" class="form-control" id="description" name="description" value="<%=post.description%>">
     </div>
   </div>
 
   <div class="row justify-content-center">
     <div class="form-group col-6">
       <label for="content">Conteúdo</label>
-      <textarea class="form-control" id="content" name="content"></textarea>
+      <textarea class="form-control" id="content" name="content"><%=post.content%></textarea>
     </div>
   </div>
 
@@ -34,11 +34,11 @@
       <label for="category">Categoria</label>
       <select id="category" name="category" class="form-control">
         <%for(category of categories){ %>
-          <option value="<%=category._id%>"><%=category.name%></option>
-        <%}%>
-
-        <%if(categories.length == 0){ %>
-          <option value="0">Nenhuma categoria registrada</option>
+          <%if(post.category && post.category._id.equals(category._id)){%>
+            <option value="<%=category._id%>" selected><%=category.name%></option>
+          <%}else{%>
+            <option value="<%=category._id%>"><%=category.name%></option>
+          <%}%>
         <% } %>
       </select>
     </div>
@@ -46,7 +46,7 @@
 
   <div class="row justify-content-center">
     <div class="form-group col-6">
-      <button type="submit" class="btn btn-success">Criar postagem</button>
+      <button type="submit" class="btn btn-success">Salvar</button>
     </div>
   </div>
 

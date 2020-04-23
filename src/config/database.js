@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/blogapp', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_CONNECTION, { useNewUrlParser: true })
         .then(() => console.log('Conectado ao mongo...'))
         .catch(error => {
           const msg = 'ERRO! Não foi possível conectar com o MongoDB!' + error

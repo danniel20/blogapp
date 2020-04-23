@@ -1,15 +1,15 @@
 const { Router } = require('express')
 const router = Router()
 
-const isAdmin = require('./isAdmin')
-
+const HomeController = require('../app/controllers/HomeController')
 const PostsController = require('../app/controllers/PostsController')
 const CategoriesController = require("../app/controllers/CategoriesController")
 const AuthController = require('../app/controllers/AuthController')
 const UsersController = require('../app/controllers/UsersController')
 const AdminController = require('../app/controllers/AdminController')
+const isAdmin = require('./isAdmin')
 
-router.get('/', PostsController.index)
+router.get('/', HomeController.index)
 
 router.get('/users/new', UsersController.new)
 router.post('/users', UsersController.create)
@@ -34,20 +34,18 @@ adminRouter.get('/', AdminController.index)
 
 adminRouter.route('/categories')
   .get(AdminController.listCategories)
-  .post(AdminController.createCategory)
-  .put(AdminController.updateCategory)
+  .post(AdminController.saveOrUpdateCategory)
   .delete(AdminController.deleteCategory)
 
-adminRouter.get('/categories/new', AdminController.formCategory)
+adminRouter.get('/categories/new', AdminController.newCategory)
 adminRouter.get('/categories/edit/:id', AdminController.editCategory)
 
 adminRouter.route('/posts')
   .get(AdminController.listPosts)
-  .post(AdminController.createPost)
-  .put(AdminController.updatePost)
+  .post(AdminController.saveOrUpdatePost)
   .delete(AdminController.deletePost)
 
-adminRouter.get('/posts/new', AdminController.formPost)
+adminRouter.get('/posts/new', AdminController.newPost)
 adminRouter.get('/posts/edit/:id', AdminController.editPost)
 
 router.use('/admin', isAdmin, adminRouter)
