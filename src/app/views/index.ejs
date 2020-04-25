@@ -5,8 +5,8 @@
   <p class="lead">Este é um blog simples, desenvolvido em Node, Express e Mongo.</p>
   <hr class="my-4">
   <p>Aqui você encontrará artigos de diversas tecnologias da área da programação.</p>
-  <%if(!user){%>
-    <a class="btn btn-primary btn-lg" href="/users/new role="button">Crie uma conta!</a>
+  <%if(!current_user){%>
+    <a class="btn btn-primary btn-lg" href="/users/new">Crie uma conta!</a>
   <%}%>
 </div>
 

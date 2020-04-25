@@ -12,17 +12,17 @@
       <li class="nav-item">
         <a class="nav-link" href="/categories">Categorias</a>
       </li>
-      <% if(!user){ %>
+      <% if(!current_user){ %>
         <li class="nav-item">
           <a class="nav-link" href="/auth/login">Login</a>
         </li>
-      <% }else if(user.isAdmin){ %>
+      <% }else if(current_user.isAdmin){ %>
         <li class="nav-item">
           <a class="nav-link" href="/admin">Administração</a>
         </li>
       <% } %>
     </ul>
-    <% if(user){ %>
+    <% if(current_user){ %>
       <div class="pull-right">
         <a href="/auth/logout">Sair</a>
       </div>

@@ -7,6 +7,6 @@ require('./src/config/middlewares')(app)
 
 app.use(require('./src/config/routes'))
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, process.env.HOST, () => {
   console.log('Server is running...')
 })

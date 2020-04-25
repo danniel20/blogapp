@@ -2,6 +2,7 @@ const Post = require('../models/Post')
 const Category = require('../models/Category')
 
 module.exports = {
+
   async show(req, res){
     try{
       const post = await Post.findById(req.params.id)

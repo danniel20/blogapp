@@ -6,13 +6,19 @@ const PostsController = require('../app/controllers/PostsController')
 const CategoriesController = require("../app/controllers/CategoriesController")
 const AuthController = require('../app/controllers/AuthController')
 const UsersController = require('../app/controllers/UsersController')
+
 const AdminController = require('../app/controllers/AdminController')
+const AdminUsersController = require('../app/controllers/admin/AdminUsersController')
+const AdminCategoriesController = require('../app/controllers/admin/AdminCategoriesController')
+const AdminPostsController = require('../app/controllers/admin/AdminPostsController')
+
 const isAdmin = require('./isAdmin')
 
 router.get('/', HomeController.index)
 
 router.get('/users/new', UsersController.new)
-router.post('/users', UsersController.create)
+router.get('/users/edit/:id', UsersController.edit)
+router.post('/users', UsersController.saveOrUpdate)
 
 const authRouter = Router()
 
@@ -33,20 +39,23 @@ const adminRouter = Router()
 adminRouter.get('/', AdminController.index)
 
 adminRouter.route('/categories')
-  .get(AdminController.listCategories)
-  .post(AdminController.saveOrUpdateCategory)
-  .delete(AdminController.deleteCategory)
+  .get(AdminCategoriesController.index)
+  .post(AdminCategoriesController.saveOrUpdate)
+  .delete(AdminCategoriesController.delete)
 
-adminRouter.get('/categories/new', AdminController.newCategory)
-adminRouter.get('/categories/edit/:id', AdminController.editCategory)
+adminRouter.get('/categories/new', AdminCategoriesController.new)
+adminRouter.get('/categories/edit/:id', AdminCategoriesController.edit)
 
 adminRouter.route('/posts')
-  .get(AdminController.listPosts)
-  .post(AdminController.saveOrUpdatePost)
-  .delete(AdminController.deletePost)
+  .get(AdminPostsController.index)
+  .post(AdminPostsController.saveOrUpdate)
+  .delete(AdminPostsController.delete)
 
-adminRouter.get('/posts/new', AdminController.newPost)
-adminRouter.get('/posts/edit/:id', AdminController.editPost)
+adminRouter.get('/posts/new', AdminPostsController.new)
+adminRouter.get('/posts/edit/:id', AdminPostsController.edit)
+
+adminRouter.route('/users')
+  .get(AdminUsersController.index)
 
 router.use('/admin', isAdmin, adminRouter)
 
