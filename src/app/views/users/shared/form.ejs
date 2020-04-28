@@ -4,9 +4,20 @@
   </div>
 <%}%>
 
-<form action="/users" method="POST">
+<form action="/users" method="POST" enctype="multipart/form-data">
 
   <input type="hidden" name="id" value="<%=user._id%>">
+
+  <div class="row justify-content-center">
+    <div class="form-group col-6">
+      <%if(user.photo){%>
+        <img src="/<%=user.photo%>" id="previewImg" alt="foto" width="100px" height="100px">
+      <%}else{%>
+        <img src="" id="previewImg">
+      <%}%>
+      <input type="file" class="form-control-file" name="photo" id="photo" class="btn">
+    </div>
+  </div>
 
   <div class="row justify-content-center">
     <div class="form-group col-6">
@@ -54,3 +65,21 @@
   </div>
 
 </form>
+
+<script>
+  const $photoInput = document.getElementById('photo')
+  const reader = new FileReader()
+
+  reader.onload = (e) => {
+    const $previewImg = document.getElementById('previewImg')
+    $previewImg.style.maxWidth = "100px"
+    $previewImg.style.maxHeight = "100px"
+    $previewImg.src = e.target.result
+  }
+
+  $photoInput.addEventListener('change', (event) => {
+    const image = event.target.files[0]
+    reader.readAsDataURL(image)
+  })
+
+</script>

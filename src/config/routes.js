@@ -13,13 +13,14 @@ const AdminCategoriesController = require('../app/controllers/admin/AdminCategor
 const AdminPostsController = require('../app/controllers/admin/AdminPostsController')
 
 const isAdmin = require('./isAdmin')
+const upload = require('./upload')
 
 router.get('/', HomeController.index)
 router.get('/create-user-admin', HomeController.createUserAdmin)
 
 router.get('/users/new', UsersController.new)
 router.get('/users/edit/:id', UsersController.edit)
-router.post('/users', UsersController.saveOrUpdate)
+router.post('/users', upload.single('photo'), UsersController.saveOrUpdate)
 
 const authRouter = Router()
 

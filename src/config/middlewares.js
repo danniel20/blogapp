@@ -14,6 +14,7 @@ module.exports = (app) => {
   app.use(express.urlencoded({extended: true}))
   app.use(express.json())
   app.use(express.static(path.resolve('node_modules/bootstrap/dist/')))
+  app.use(express.static(path.resolve('uploads/')))
 
   app.use(methodOverride('_method'))
 
@@ -49,6 +50,8 @@ module.exports = (app) => {
   // Configurações da view com ejs
   app.set('views', path.resolve('src/app/views'))
   app.set('view engine', 'ejs')
-  app.set('layout', 'layouts/layout')
+
   app.use(expressLayouts)
+  app.set('layout', 'layouts/layout')
+
 }

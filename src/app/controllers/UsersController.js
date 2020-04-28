@@ -57,6 +57,7 @@ module.exports = {
           return res.render('users/shared/form', { user, errors })
         }
 
+        userToEdit.photo = user.file.path
         userToEdit.name = user.name
         userToEdit.email = user.email
         userToEdit.password = user.password
@@ -75,7 +76,7 @@ module.exports = {
         }
 
         delete req.body.passwordConfirmation
-        await User.create(req.body)
+        await User.create({...req.body, photo: req.file.filename})
 
         req.flash("success_msg", "Usuário criado com sucesso.")
         res.redirect('/')
@@ -83,6 +84,7 @@ module.exports = {
 
     }
     catch(err){
+      console.log(err)
       req.flash("error_msg", "Erro ao registrar usuário.")
       res.redirect('/')
     }

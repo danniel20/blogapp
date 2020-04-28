@@ -1,8 +1,13 @@
 <%- contentFor('body') %>
 
 <h1>Categorias</h1>
-
 <hr>
-<% for (category of categories){%>
-  <h4><a href="/posts/category/<%=category._id%>"><%=category.name%></a></h4>
-<% } %>
+
+<% if(categories.length == 0){ %>
+  <h4 class="mt-3">Nenhuma categoria registrada!</h4>
+<% }else{ %>
+  <% for (category of categories){%>
+    <h4><a href="/posts/category/<%=category._id%>"><%=category.name%></a></h4>
+  <% } %>
+<%}%>
+
