@@ -15,6 +15,7 @@ const AdminPostsController = require('../app/controllers/admin/AdminPostsControl
 const isAdmin = require('./isAdmin')
 
 router.get('/', HomeController.index)
+router.get('/create-user-admin', HomeController.createUserAdmin)
 
 router.get('/users/new', UsersController.new)
 router.get('/users/edit/:id', UsersController.edit)
