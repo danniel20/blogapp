@@ -1,0 +1,32 @@
+version: "3.1"
+volumes:
+  dados:
+services:
+  db:
+    image: mongo:latest
+    container_name: db
+    restart: always
+    volumes:
+      - dados:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
+  web:
+    image: node:latest
+    container_name: web
+    env_file:
+     - .env
+    depends_on:
+      - db
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - .:/usr/blogapp
+    working_dir: /usr/blogapp
+    command: bash -c "yarn --no-bin-links && yarn start"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
