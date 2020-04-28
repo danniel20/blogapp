@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config app.js",
+    "dev": "nodemon -- -r dotenv/config index.js",
     "db-dev": "mongod --dbpath=data/",
     "eslint": "eslint ./src/**/*.js",
     "start": "./node_modules/pm2/bin/pm2 start index.js --watch --no-daemon"
