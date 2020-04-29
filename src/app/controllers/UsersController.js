@@ -84,7 +84,6 @@ module.exports = {
 
     }
     catch(err){
-      console.log(err)
       req.flash("error_msg", "Erro ao registrar usuário.")
       res.redirect('/')
     }
