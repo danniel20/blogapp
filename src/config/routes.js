@@ -58,6 +58,7 @@ adminRouter.get('/posts/edit/:id', AdminPostsController.edit)
 
 adminRouter.route('/users')
   .get(AdminUsersController.index)
+  .delete(AdminUsersController.delete)
 
 router.use('/admin', isAdmin, adminRouter)
 

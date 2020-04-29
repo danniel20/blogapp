@@ -23,6 +23,10 @@
           <td><%=user.isAdmin ? 'Sim' : 'Não'%></td>
           <td>
             <a href="/users/edit/<%=user._id%>" class="btn btn-success btn-sm">Editar</a>
+            <form action="/admin/users?_method=DELETE" method="POST" style="display: inline;">
+              <input type="hidden" name="id" value="<%=user._id%>">
+              <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+            </form>
           </td>
         </tr>
       <%})%>

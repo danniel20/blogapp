@@ -11,5 +11,18 @@ module.exports = {
       req.flash("error_msg", "Erro ao carregar usuários.")
       res.redirect('/admin')
     }
+  },
+
+  async delete(req, res){
+    try{
+      await User.findByIdAndRemove(req.body.id)
+
+      req.flash("success_msg", "Usuário removido com sucesso.")
+      res.redirect('/admin/users')
+    }
+    catch(err){
+      req.flash("error_msg", "Erro ao deletar usuário.")
+      res.redirect('/')
+    }
   }
 }
