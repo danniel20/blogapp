@@ -15,12 +15,13 @@ const AdminPostsController = require('../app/controllers/admin/AdminPostsControl
 const isAdmin = require('./isAdmin')
 const upload = require('./upload')
 
-router.get('/', HomeController.index)
-router.get('/create-user-admin', HomeController.createUserAdmin)
+router
+  .get('/', HomeController.index)
+  .get('/create-user-admin', HomeController.createUserAdmin)
 
-router.get('/users/new', UsersController.new)
-router.get('/users/edit/:id', UsersController.edit)
-router.post('/users', upload.single('photo'), UsersController.saveOrUpdate)
+  .get('/users/new', UsersController.new)
+  .get('/users/edit/:id', UsersController.edit)
+  .post('/users', upload.single('photo'), UsersController.saveOrUpdate)
 
 const authRouter = Router()
 
@@ -32,9 +33,10 @@ authRouter.get('/logout', AuthController.logout)
 
 router.use('/auth', authRouter)
 
-router.get('/categories', CategoriesController.index)
-router.get('/post/:id', PostsController.show)
-router.get('/posts/category/:id', PostsController.byCategory)
+router
+  .get('/categories', CategoriesController.index)
+  .get('/post/:id', PostsController.show)
+  .get('/posts/category/:id', PostsController.byCategory)
 
 const adminRouter = Router()
 
@@ -45,16 +47,18 @@ adminRouter.route('/categories')
   .post(AdminCategoriesController.saveOrUpdate)
   .delete(AdminCategoriesController.delete)
 
-adminRouter.get('/categories/new', AdminCategoriesController.new)
-adminRouter.get('/categories/edit/:id', AdminCategoriesController.edit)
+adminRouter
+  .get('/categories/new', AdminCategoriesController.new)
+  .get('/categories/edit/:id', AdminCategoriesController.edit)
 
 adminRouter.route('/posts')
   .get(AdminPostsController.index)
   .post(AdminPostsController.saveOrUpdate)
   .delete(AdminPostsController.delete)
 
-adminRouter.get('/posts/new', AdminPostsController.new)
-adminRouter.get('/posts/edit/:id', AdminPostsController.edit)
+adminRouter
+  .get('/posts/new', AdminPostsController.new)
+  .get('/posts/edit/:id', AdminPostsController.edit)
 
 adminRouter.route('/users')
   .get(AdminUsersController.index)
