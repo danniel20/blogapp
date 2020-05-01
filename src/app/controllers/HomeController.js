@@ -1,6 +1,8 @@
 const Post = require('../models/Post')
 const User = require('../models/User')
 
+const email = require('../../modules/mailer')
+
 module.exports = {
 
   async index(req, res){
@@ -32,6 +34,24 @@ module.exports = {
       req.flash("error_msg", "Erro interno")
       res.redirect("/")
     }
+  },
+
+  sendEmailTeste(req, res){
+    email.send({
+      template: 'hello',
+      message: {
+        from: 'Bruce Wayne <no-reply@blog.com>',
+        to: 'john@snow.com',
+        subject: 'Email de Teste'
+      },
+      locals: {
+        fname: 'John',
+        lname: 'Snow',
+      },
+    }).then(() => console.log('email enviado!'))
+      .catch(err => console.log(err))
+
+      res.sendStatus(200)
   }
 
 }

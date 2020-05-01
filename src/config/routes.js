@@ -18,6 +18,7 @@ const upload = require('./upload')
 router
   .get('/', HomeController.index)
   .get('/create-user-admin', HomeController.createUserAdmin)
+  .get('/send-mail', HomeController.sendEmailTeste) //teste
 
   .get('/users/new', UsersController.new)
   .get('/users/edit/:id', UsersController.edit)
