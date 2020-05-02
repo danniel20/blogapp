@@ -57,7 +57,7 @@ module.exports = {
           return res.render('users/shared/form', { user, errors })
         }
 
-        userToEdit.photo = user.photo ? user.photo : req.file.filename
+        userToEdit.photo = user.photo ? user.photo : req.file ? req.file.filename : null
         userToEdit.name = user.name
         userToEdit.email = user.email
         userToEdit.password = user.password
