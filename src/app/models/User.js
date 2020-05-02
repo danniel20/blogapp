@@ -21,6 +21,14 @@ const UserSchema = new mongoose.Schema({
   photo: {
     type: String
   },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
+  passwordResetExpires: {
+    type: Date,
+    select: false
+  },
   createdAt: {
     type: Date,
     default: Date.now()
@@ -35,12 +43,9 @@ UserSchema.pre('save', function(next){
   const hash = bcrypt.hashSync(this.password, 10)
   this.password = hash
 
-  next()
+  this.updatedAt = new Date()
 })
 
-UserSchema.pre('updateOne', function() {
-  this.set({ updatedAt: new Date() })
-})
 
 const User = mongoose.model('User', UserSchema)
 

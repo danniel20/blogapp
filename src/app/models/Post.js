@@ -28,7 +28,7 @@ const PostSchema = new mongoose.Schema({
   }
 })
 
-PostSchema.pre('updateOne', function() {
+PostSchema.pre('save', function() {
   this.set({ updatedAt: new Date() })
 })
 
