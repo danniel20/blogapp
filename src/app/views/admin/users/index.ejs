@@ -12,6 +12,8 @@
         <th scope="col">Nome</th>
         <th scope="col">Email</th>
         <th scope="col">Administrador</th>
+        <th scope="col">Data de Criação</th>
+        <th scope="col">Última atualização</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +23,8 @@
           <td><%=user.name%></td>
           <td><%=user.email%></td>
           <td><%=user.isAdmin ? 'Sim' : 'Não'%></td>
+          <td><%=new Date(user.createdAt).toISOString().substr(0, 10).split('-').reverse().join('/')%></td>
+          <td><%=new Date(user.updatedAt).toISOString().substr(0, 10).split('-').reverse().join('/')%></td>
           <td>
             <a href="/users/edit/<%=user._id%>" class="btn btn-success btn-sm">Editar</a>
             <form action="/admin/users?_method=DELETE" method="POST" style="display: inline;">
