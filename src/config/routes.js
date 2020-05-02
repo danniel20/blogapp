@@ -18,7 +18,6 @@ const upload = require('./upload')
 router
   .get('/', HomeController.index)
   .get('/create-user-admin', HomeController.createUserAdmin)
-  .get('/send-mail', HomeController.sendEmailTeste) //teste
 
   .get('/users/new', UsersController.new)
   .get('/users/edit/:id', UsersController.edit)
@@ -31,6 +30,14 @@ authRouter.route('/login')
   .post(AuthController.login)
 
 authRouter.get('/logout', AuthController.logout)
+
+authRouter.route('/forgot-password')
+  .get(AuthController.forgotPassword)
+  .post(AuthController.sendEmailPasswordInstructions)
+
+authRouter.route('/reset-password')
+  .get(AuthController.resetPasswordForm)
+  .post(AuthController.resetPasswordConfirm)
 
 router.use('/auth', authRouter)
 
