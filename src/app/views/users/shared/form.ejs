@@ -82,4 +82,9 @@
     reader.readAsDataURL(image)
   })
 
+  const $inputAdmin = document.getElementById("isAdmin")
+  $inputAdmin.addEventListener('change', (event) => {
+    event.target.checked ? event.target.value = "1" : event.target.value = "0"
+  })
+
 </script>
