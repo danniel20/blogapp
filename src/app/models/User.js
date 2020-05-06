@@ -1,5 +1,7 @@
 const mongoose = require('../../config/database')
 const bcrypt = require('bcryptjs')
+const fs = require('fs')
+const path = require("path")
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -42,10 +44,18 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', function(next){
   const hash = bcrypt.hashSync(this.password, 10)
   this.password = hash
-
   this.updatedAt = new Date()
+
+  next()
 })
 
+UserSchema.pre('remove', function(){
+  if(this.photo){
+    fs.unlink(path.resolve(__dirname, '..', '..', '..', 'uploads', this.photo), (err) => {
+      if (err) throw err
+    })
+  }
+})
 
 const User = mongoose.model('User', UserSchema)
 
