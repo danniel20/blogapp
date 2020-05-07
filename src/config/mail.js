@@ -1,7 +1,9 @@
+const { EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS, EMAIL_SENDER } = process.env
+
 module.exports = {
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  user: process.env.EMAIL_USER,
-  password: process.env.EMAIL_PASS,
-  sender: process.env.EMAIL_SENDER
+  host: EMAIL_HOST,
+  port: EMAIL_PORT,
+  user: EMAIL_USER,
+  password: EMAIL_PASS,
+  sender: EMAIL_SENDER
 }
