@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon -- -r dotenv/config index.js",
     "db-dev": "mongod --dbpath=data/",
+    "init-seed": "npx -p mongo-seeding-cli seed --drop-database ./src/seeds",
     "eslint": "eslint ./src/**/*.js",
     "start": "./node_modules/pm2/bin/pm2 start index.js --watch --no-daemon"
   },
@@ -19,11 +20,10 @@
     "email-templates": "^7.0.4",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
-    "express-handlebars": "^4.0.3",
     "express-session": "^1.17.0",
-    "handlebars-helpers": "^0.10.0",
     "helmet": "^3.22.0",
     "method-override": "^3.0.0",
+    "mongo-seeding": "^3.4.1",
     "mongoose": "^5.9.9",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.6",
