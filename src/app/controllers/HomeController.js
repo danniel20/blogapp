@@ -32,6 +32,11 @@ module.exports = {
       req.flash("error_msg", "Erro interno")
       res.redirect("/")
     }
+  },
+
+  executeTask(req, res){
+    require('../../config/seedTask')
+    res.sendStatus(200)
   }
 
 }
