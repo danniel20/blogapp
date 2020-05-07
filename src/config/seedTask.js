@@ -3,7 +3,7 @@ const { Seeder } = require('mongo-seeding')
 
 const config = {
   database: {
-    name: 'blogapp',
+    name: process.env.DB_NAME,
   },
   dropDatabase: true
 };
