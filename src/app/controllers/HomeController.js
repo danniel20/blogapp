@@ -34,9 +34,11 @@ module.exports = {
     }
   },
 
-  executeTask(req, res){
+  executeSeeds(req, res){
     require('../../config/seedTask')
-    res.sendStatus(200)
+
+    req.flash("success_msg", `Seeds executado com sucesso!`)
+    res.redirect("/")
   }
 
 }
