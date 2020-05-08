@@ -17,7 +17,6 @@ const upload = require('./upload')
 
 router
   .get('/', HomeController.index)
-  .get('/create-user-admin', HomeController.createUserAdmin)
   .get('/populate-database', HomeController.executeSeeds)
 
   .get('/users/new', UsersController.new)
