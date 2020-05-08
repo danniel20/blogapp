@@ -2,14 +2,9 @@ const mongoose = require('mongoose')
 
 const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = process.env
 
-let connectionString
-
-if(DB_USER || DB_PASS){
-  connectionString = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`
-}
-else{
-  connectionString = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`
-}
+const connectionString =  process.env.NODE_ENV == 'production' ?
+  `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin` :
+  `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
 mongoose.connect(connectionString, { useNewUrlParser: true })
   .then(() => console.log('Conectado ao mongo...'))
