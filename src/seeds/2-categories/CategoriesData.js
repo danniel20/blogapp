@@ -1,10 +1,11 @@
-const categories = ['Ruby', 'Node', 'Java', 'Python', 'Rails', 'Javascript', 'Angular', 'Vue', 'React']
+const seedCategories = ['Ruby', 'Node', 'Java', 'Python', 'Rails', 'Javascript', 'Angular', 'Vue', 'React']
+const categories = []
 
-for (let i = 0; i < categories.length; i++) {
+for (let i = 0; i < seedCategories.length; i++) {
   categories.push(
     {
-      name: categories[i],
-      label: categories[i].toLowerCase()
+      name: seedCategories[i],
+      label: seedCategories[i].toString().toLowerCase()
     }
   )
 }
