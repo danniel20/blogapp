@@ -35,8 +35,7 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
-    "nodemon": "^2.0.3",
-    "remove": "^0.1.5"
+    "nodemon": "^2.0.3"
   },
   "mdSeed": {
     "seedersFolder": "./src/seeders"
