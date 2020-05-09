@@ -7,7 +7,7 @@
     "db-dev": "mongod --dbpath=data/",
     "init-seed": "npx -p mongo-seeding-cli seed --drop-database ./src/seeds",
     "eslint": "eslint ./src/**/*.js",
-    "start": "./node_modules/pm2/bin/pm2 start index.js --watch --no-daemon"
+    "start": "./node_modules/pm2/bin/pm2 start index.js --watch --no-daemon --node-args=\"-r esm\" "
   },
   "license": "MIT",
   "dependencies": {
