@@ -1,4 +1,4 @@
-const mongoose = require('../../config/database')
+import mongoose from '../../config/database'
 
 const PostSchema = new mongoose.Schema({
   title: {
@@ -32,6 +32,4 @@ PostSchema.pre('save', function() {
   this.set({ updatedAt: new Date() })
 })
 
-const Post = mongoose.model('Post', PostSchema)
-
-module.exports = Post
+export default mongoose.model('Post', PostSchema)

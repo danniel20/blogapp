@@ -1,10 +1,10 @@
-const passport = require('../../config/auth')
-const mailer = require('../../modules/mailer')
-const crypto = require('crypto')
+import passport from '../../config/auth'
+import mailer from '../../modules/mailer'
+import crypto from 'crypto'
 
-const User = require('../models/User')
+import User from '../models/User'
 
-module.exports = {
+export const AuthController = {
 
   form(req, res){
     res.render('auth/login', {errors: []})

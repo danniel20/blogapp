@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
   if(req.isAuthenticated() && req.user.isAdmin){ // função do passport
     return next()
   }

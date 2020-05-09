@@ -1,8 +1,8 @@
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
-const bcrypt = require('bcryptjs')
+import passport from 'passport'
+import { Strategy as LocalStrategy } from 'passport-local'
+import bcrypt from 'bcryptjs'
 
-const User = require('../app/models/User')
+import User from '../app/models/User'
 
 passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (email, password, done) => {
   const user = await User.findOne({email: email})
@@ -27,4 +27,4 @@ passport.deserializeUser( (id, done) => {
   })
 })
 
-module.exports = passport
+export default passport

@@ -1,19 +1,20 @@
-const { Router } = require('express')
+import { Router } from 'express'
+
+import {HomeController} from '../app/controllers/HomeController'
+import {PostsController} from '../app/controllers/PostsController'
+import {CategoriesController} from "../app/controllers/CategoriesController"
+import {AuthController} from '../app/controllers/AuthController'
+import {UsersController} from '../app/controllers/UsersController'
+
+import {AdminController} from '../app/controllers/AdminController'
+import {AdminUsersController} from '../app/controllers/admin/AdminUsersController'
+import {AdminCategoriesController} from '../app/controllers/admin/AdminCategoriesController'
+import {AdminPostsController} from '../app/controllers/admin/AdminPostsController'
+
+import {isAdmin} from './isAdmin'
+import upload from './upload'
+
 const router = Router()
-
-const HomeController = require('../app/controllers/HomeController')
-const PostsController = require('../app/controllers/PostsController')
-const CategoriesController = require("../app/controllers/CategoriesController")
-const AuthController = require('../app/controllers/AuthController')
-const UsersController = require('../app/controllers/UsersController')
-
-const AdminController = require('../app/controllers/AdminController')
-const AdminUsersController = require('../app/controllers/admin/AdminUsersController')
-const AdminCategoriesController = require('../app/controllers/admin/AdminCategoriesController')
-const AdminPostsController = require('../app/controllers/admin/AdminPostsController')
-
-const isAdmin = require('./isAdmin')
-const upload = require('./upload')
 
 router
   .get('/', HomeController.index)
@@ -74,4 +75,4 @@ adminRouter.route('/users')
 
 router.use('/admin', isAdmin, adminRouter)
 
-module.exports = router
+export default router

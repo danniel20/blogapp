@@ -1,6 +1,6 @@
-const User = require('../../models/User')
+import User from '../../models/User'
 
-module.exports = {
+export const AdminUsersController = {
 
   async index(req, res){
     try{

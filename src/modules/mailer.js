@@ -1,8 +1,8 @@
-const nodemailer = require('nodemailer')
-const Email = require('email-templates')
-const path = require('path')
+import nodemailer from 'nodemailer'
+import Email from 'email-templates'
+import path from 'path'
 
-const mailConfig = require('../config/mail')
+import {mailConfig} from '../config/mail'
 
 // Create a SMTP transporter object
 const transporter = nodemailer.createTransport({
@@ -26,4 +26,4 @@ const email = new Email({
   },
 })
 
-module.exports = email
+export default email

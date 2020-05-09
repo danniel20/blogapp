@@ -1,7 +1,7 @@
-const Post = require('../../models/Post')
-const Category = require('../../models/Category')
+import Post from '../../models/Post'
+import Category from '../../models/Category'
 
-module.exports =  {
+export const AdminPostsController =  {
 
   async index(req, res) {
     try {

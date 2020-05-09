@@ -1,4 +1,4 @@
-const mongoose = require('../../config/database')
+import mongoose from '../../config/database'
 
 const CategorySchema = new mongoose.Schema({
   name: {
@@ -23,6 +23,4 @@ CategorySchema.pre('save', function() {
   this.set({ updatedAt: new Date() })
 })
 
-const Category = mongoose.model('Category', CategorySchema)
-
-module.exports = Category
+export default mongoose.model('Category', CategorySchema)

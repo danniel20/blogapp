@@ -1,10 +1,8 @@
-const express = require('express')
-const app = express()
+import './src/config/database'
+import app from './src/config/middlewares'
+import route from './src/config/routes'
 
-require('./src/config/database')
-require('./src/config/middlewares')(app)
-
-app.use(require('./src/config/routes'))
+app.use(route)
 
 app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
   console.log('Server is running...')

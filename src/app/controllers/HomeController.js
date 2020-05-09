@@ -1,7 +1,6 @@
-const Post = require('../models/Post')
-const User = require('../models/User')
+import Post from '../models/Post'
 
-module.exports = {
+export const HomeController = {
 
   async index(req, res){
     try{
@@ -15,7 +14,7 @@ module.exports = {
   },
 
   executeSeeds(req, res){
-    require('../../config/seedTask')
+
 
     req.flash("success_msg", "Seeds executado com sucesso!. Usuário Admin: { email: admin@admin, senha: 123456}")
     res.redirect("/")

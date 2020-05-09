@@ -1,7 +1,7 @@
-const mongoose = require('../../config/database')
-const bcrypt = require('bcryptjs')
-const fs = require('fs')
-const path = require("path")
+import mongoose from '../../config/database'
+import bcrypt from 'bcryptjs'
+import fs from 'fs'
+import path from "path"
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -57,6 +57,4 @@ UserSchema.pre('remove', function(){
   }
 })
 
-const User = mongoose.model('User', UserSchema)
-
-module.exports = User
+export default mongoose.model('User', UserSchema)

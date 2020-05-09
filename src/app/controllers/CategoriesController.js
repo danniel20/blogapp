@@ -1,6 +1,6 @@
-const Category = require('../models/Category')
+import Category from '../models/Category'
 
-module.exports = {
+export const CategoriesController = {
 
   async index(req, res){
     try{

@@ -1,6 +1,6 @@
-const User = require('../models/User')
+import User from '../models/User'
 
-module.exports = {
+export const UsersController = {
 
   new(req, res){
     res.render('users/new', {user: new User({_id: null}), errors: []})
