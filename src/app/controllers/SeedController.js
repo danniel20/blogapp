@@ -25,7 +25,7 @@ export const SeedController = {
       await User.create(
         {
           name: faker.name.firstName(),
-          email: faker.internet.email(),
+          email: faker.internet.email().toLowerCase(),
           password: '123456'
         }
       )
