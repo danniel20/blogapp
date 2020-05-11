@@ -20,13 +20,6 @@ export const HomeController = {
       req.flash("error_msg", "Erro ao listar posts")
       res.redirect('/')
     }
-  },
-
-  executeSeeds(req, res){
-
-
-    req.flash("success_msg", "Seeds executado com sucesso!. Usuário Admin: { email: admin@admin, senha: 123456}")
-    res.redirect("/")
   }
 
 }
