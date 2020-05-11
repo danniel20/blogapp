@@ -10,6 +10,7 @@ import {AdminController} from '../app/controllers/AdminController'
 import {AdminUsersController} from '../app/controllers/admin/AdminUsersController'
 import {AdminCategoriesController} from '../app/controllers/admin/AdminCategoriesController'
 import {AdminPostsController} from '../app/controllers/admin/AdminPostsController'
+import {SeedController} from '../app/controllers/SeedController'
 
 import {isAdmin} from './isAdmin'
 import upload from './upload'
@@ -18,7 +19,7 @@ const router = Router()
 
 router
   .get('/', HomeController.index)
-  .get('/populate-database', HomeController.executeSeeds)
+  .get('/populate-database', SeedController.seed)
 
   .get('/users/new', UsersController.new)
   .get('/users/edit/:id', UsersController.edit)
