@@ -8,7 +8,11 @@ export const SeedController = {
 
   async seed(req, res){
 
-    User.create(
+    await User.remove()
+    await Category.remove()
+    await Post.remove()
+
+    await User.create(
       {
         name: 'Admin',
         email: 'admin@admin.com',
@@ -18,7 +22,7 @@ export const SeedController = {
     )
 
     for (let i = 1; i < 10; i++) {
-      User.create(
+      await User.create(
         {
           name: faker.name.firstName(),
           email: faker.internet.email(),
@@ -30,7 +34,7 @@ export const SeedController = {
     const seedCategories = ['Ruby', 'Node', 'Java', 'Python', 'Ruby on Rails', 'Javascript', 'Angular', 'Vue', 'React']
 
     for (let i = 0; i < seedCategories.length; i++) {
-      Category.create(
+      await Category.create(
         {
           name: seedCategories[i],
           label: seedCategories[i].toString().toLowerCase()
@@ -44,7 +48,7 @@ export const SeedController = {
       let max = getRandomIntInclusive(1, 3)
 
       for (let j = 0; j < max; j++) {
-        Post.create(
+        await Post.create(
           {
             title: faker.name.title(),
             description: faker.lorem.sentence(),
