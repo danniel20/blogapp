@@ -1,5 +1,6 @@
 import express from 'express'
 import session from 'express-session'
+import connectMongo from 'connect-mongo'
 import passport from './auth'
 import flash from 'connect-flash'
 import helmet from 'helmet'
@@ -7,6 +8,8 @@ import cors from 'cors'
 import expressLayouts from 'express-ejs-layouts'
 import methodOverride from 'method-override'
 import path from 'path'
+
+import { connectionString } from './database'
 
 const app = express()
 
@@ -17,11 +20,16 @@ app.use(express.static(path.resolve('node_modules/bootstrap/dist/')))
 app.use(express.static(path.resolve('uploads/')))
 
 app.use(methodOverride('_method'))
-
 app.use(cors())
 
 // Configuração da sessão
+const MongoStore = connectMongo(session)
+
 app.use(session({
+  store: new MongoStore({
+    url: connectionString,
+    ttl: 30 * 60 // = 30 minutos de sessão
+  }),
   secret: 'my_key_secret',
   resave: false,
   saveUninitialized: true
