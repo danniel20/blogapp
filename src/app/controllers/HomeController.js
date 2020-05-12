@@ -12,7 +12,7 @@ export const HomeController = {
         .skip((page - 1) * 4)
         .sort({createdAt: 'desc'})
 
-      const total = await Post.find().count()
+      const total = await Post.find().countDocuments()
 
       res.render('index', {posts, total})
     }
